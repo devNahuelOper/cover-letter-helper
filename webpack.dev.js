@@ -22,7 +22,6 @@ module.exports = merge(common, {
       },
     ],
   },
-  target: "node",
   devServer: {
     contentBase: "./",
     watchContentBase: true,

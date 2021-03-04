@@ -7,8 +7,8 @@ module.exports = {
     vendor: "./src/vendor.js",
   },
   output: {
-    filename: "[name].[contenthash].bundle.js",
     path: path.resolve(__dirname, "dist"),
+    filename: "[name].[contenthash].bundle.js",
   },
   resolve: {
     extensions: [".js"],
@@ -22,6 +22,7 @@ module.exports = {
           loader: "babel-loader",
           options: {
             presets: ["@babel/preset-env"],
+            plugins: ["@babel/plugin-proposal-optional-chaining"],
             exclude: /node_modules/,
           },
         },

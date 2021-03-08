@@ -1,4 +1,20 @@
 import "bootstrap";
+import "regenerator-runtime/runtime";
+
 // const fs = require.resolve("fs");
 
-console.log("I sell many stuff");
+(async () => {
+    try {
+      const fs = await import("browserify-fs");
+      // const pdf = await import("pdfkit");
+
+      // const data = await fs.readFile('./index.js');
+      // console.log(data);
+      console.log(fs);
+      // console.log(pdf);
+    } catch (e) {
+      console.log(e);
+    }
+})()
+
+// console.log(fs);

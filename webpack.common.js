@@ -19,13 +19,9 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
+        exclude: /node_modules/,
         use: {
           loader: "babel-loader",
-          options: {
-            presets: ["@babel/preset-env"],
-            plugins: ["@babel/plugin-proposal-optional-chaining"],
-            exclude: /node_modules/,
-          },
         },
       },
       {
@@ -39,6 +35,16 @@ module.exports = {
           options: {
             name: "[name].[hash].[ext]",
             outputPath: "images",
+          },
+        },
+      },
+      {
+        test: /node_modules\/(pdfkit|fontkit|png-js|linebreak|brotli|unicode-properties)\//,
+        use: {
+          loader: "transform-loader?brfs",
+          options: {
+            presets: ["@babel/preset-env"],
+            modules: false
           },
         },
       },

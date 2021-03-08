@@ -1,4 +1,5 @@
-// const fs = require("fs");
+const fs = require("browserify-fs");
+// import "browserify-fs";
 // const PDFDocument = require("pdfkit");
 
 
@@ -12,7 +13,8 @@ export const activateInputs = () => {
       content = document.getElementById("letter").innerText;
     });
   });
-// console.log('inline');
+  
+  console.log(fs);
 };
 
 $("#link").on("click", () =>

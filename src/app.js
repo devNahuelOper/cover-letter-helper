@@ -1,7 +1,7 @@
 const fs = require("browserify-fs");
 // import "browserify-fs";
 // const PDFDocument = require("pdfkit");
-
+window.fs = fs;
 
 let content;
 
@@ -15,6 +15,9 @@ export const activateInputs = () => {
   });
   
   console.log(fs);
+  // fs.readdir('./', (err, res) => err ? console.log('Error: ', err) : console.log(res));
+  // fs.readFile('./index.js', (err, res) => err ? console.log('Error: ', err) : console.log(res));
+  // console.log(fs.readFileSync('./index.js'));
 };
 
 $("#link").on("click", () =>

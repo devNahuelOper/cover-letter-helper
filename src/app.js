@@ -1,11 +1,15 @@
 const browserFs = require("browserify-fs");
 const PDFDocument = require("pdfkit").default;
+const path = require("path");
+const blobStream = require("blob-stream");
 import fs from 'fs';
 import Helvetica from "!!raw-loader!pdfkit/js/data/Helvetica.afm";
-
-
+import HelveticaBold from "!!raw-loader!pdfkit/js/data/Helvetica-Bold.afm";
 
 window.fs = fs;
+window.path = path;
+window.browserFs = browserFs;
+window.blobStream = blobStream;
 
 let content;
 
@@ -24,23 +28,25 @@ export const activateInputs = () => {
 
 export const activatePDF = () => {
   fs.writeFileSync("data/Helvetica.afm", Helvetica);
+  fs.writeFileSync("data/Helvetica-Bold.afm", HelveticaBold);
 
   $("#link").on("click", () =>
     makePdf(`${$("#Company").val().trim()}_CL`, content)
   );
 }
 
-
 const plugText = "Denizen Confidant (https://denizen-confidant.herokuapp.com),";
 
 function makePdf(title, text) {
   text = text.split(plugText);
   const pdfDoc = new PDFDocument();
-  window.pdfDoc = pdfDoc;
 
-  pdfDoc.pipe(
-    browserFs.createWriteStream(`/Users/nahuelgorosito/Desktop/${title}.pdf`)
-  );
+  // pdfDoc.pipe(
+  //   // browserFs.createWriteStream(`/Users/nahuelgorosito/Desktop/${title}.pdf`)
+  //   browserFs.createWriteStream(`/${title}.pdf`)
+  // );
+  const stream = pdfDoc.pipe(blobStream());
+  window.stream = stream;
 
   pdfDoc
     .fontSize(24)
@@ -65,7 +71,7 @@ function makePdf(title, text) {
     .fill("#000")
     .moveDown(2)
     .text(text[0], 56, 150, {
-      paragraphGap: 10,
+      paragraphGap: 6,
       indent: 10,
       width: 512,
       continued: true,
@@ -83,7 +89,7 @@ function makePdf(title, text) {
     .font("Helvetica", 13)
     .fill("#000")
     .text(text[1], {
-      paragraphGap: 10,
+      paragraphGap: 6,
       indent: 10,
       width: 512,
     });
@@ -97,4 +103,10 @@ function makePdf(title, text) {
     });
 
   pdfDoc.end();
+  stream.on('finish', () => {
+    let link = document.links[1];
+    link.href = stream.toBlobURL('application/pdf');
+    link.download = `${title}.pdf`;
+  });
+  console.log(title);
 }

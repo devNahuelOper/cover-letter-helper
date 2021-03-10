@@ -1,5 +1,4 @@
 const fs = require("browserify-fs");
-// import "browserify-fs";
 // const PDFDocument = require("pdfkit");
 window.fs = fs;
 

@@ -13,6 +13,9 @@ module.exports = {
   },
   resolve: {
     extensions: [".js"],
+    alias: {
+      fs: "pdfkit/js/virtual-fs.js",
+    },
   },
   plugins: [new NodePolyfillPlugin()],
   module: {
@@ -39,14 +42,31 @@ module.exports = {
         },
       },
       {
-        test: /node_modules\/(pdfkit|fontkit|png-js|linebreak|brotli|unicode-properties)\//,
+        enforce: "post",
+        test: /fontkit[/\\]index.js$/,
         use: {
           loader: "transform-loader?brfs",
-          options: {
-            presets: ["@babel/preset-env"],
-            modules: false
-          },
         },
+      },
+      {
+        enforce: "post",
+        test: /unicode-properties[/\\]index.js$/,
+        use: {
+          loader: "transform-loader?brfs",
+        },
+      },
+      {
+        enforce: "post",
+        test: /linebreak[/\\]src[/\\]linebreaker.js/,
+        use: {
+          loader: "transform-loader?brfs",
+        },
+      },
+      {
+        test: /\.afm$/,
+        use: {
+          loader: "raw-loader",
+        }
       },
     ],
   },

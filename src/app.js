@@ -1,5 +1,10 @@
-const fs = require("browserify-fs");
-// const PDFDocument = require("pdfkit");
+const browserFs = require("browserify-fs");
+const PDFDocument = require("pdfkit").default;
+import fs from 'fs';
+import Helvetica from "!!raw-loader!pdfkit/js/data/Helvetica.afm";
+
+
+
 window.fs = fs;
 
 let content;
@@ -14,14 +19,17 @@ export const activateInputs = () => {
   });
   
   console.log(fs);
-  // fs.readdir('./', (err, res) => err ? console.log('Error: ', err) : console.log(res));
-  // fs.readFile('./index.js', (err, res) => err ? console.log('Error: ', err) : console.log(res));
-  // console.log(fs.readFileSync('./index.js'));
+  console.log(browserFs);
 };
 
-$("#link").on("click", () =>
-  makePdf(`${$("#Company").val().trim()}_CL`, content)
-);
+export const activatePDF = () => {
+  fs.writeFileSync("data/Helvetica.afm", Helvetica);
+
+  $("#link").on("click", () =>
+    makePdf(`${$("#Company").val().trim()}_CL`, content)
+  );
+}
+
 
 const plugText = "Denizen Confidant (https://denizen-confidant.herokuapp.com),";
 
@@ -31,7 +39,7 @@ function makePdf(title, text) {
   window.pdfDoc = pdfDoc;
 
   pdfDoc.pipe(
-    fs.createWriteStream(`/Users/nahuelgorosito/Desktop/${title}.pdf`)
+    browserFs.createWriteStream(`/Users/nahuelgorosito/Desktop/${title}.pdf`)
   );
 
   pdfDoc

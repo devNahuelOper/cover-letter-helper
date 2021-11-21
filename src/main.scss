@@ -6,6 +6,10 @@ $primary: rgb(8, 92, 92);
   padding: 40px 0;
 }
 
+em {
+  font-style: italic;
+}
+
 #plug {
   font-size: 100%;
   font-weight: 300;
@@ -13,7 +17,8 @@ $primary: rgb(8, 92, 92);
 }
 
 #consideration, #regards {
-  padding: 0 4px;
+  // padding: 0 4px;
+  // margin-left: -6px;
 }
 
 .paragraph[contenteditable] {

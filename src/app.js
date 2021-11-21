@@ -30,8 +30,11 @@ export const activatePDF = () => {
   fs.writeFileSync("data/Helvetica.afm", Helvetica);
   fs.writeFileSync("data/Helvetica-Bold.afm", HelveticaBold);
 
-  $("#link").on("click", () =>
-    makePdf(`${$("#Company").val().trim()}_CL`, content)
+  $("#link").on("click", (e) => {
+    // e.preventDefault();
+    makePdf(`${$("#Company").val().trim()}_CL`, content);
+    // e.currentTarget.click();
+  }
   );
 }
 
@@ -40,7 +43,7 @@ const plugText = "Denizen Confidant (https://denizen-confidant.herokuapp.com)";
 function makePdf(title, text) {
   text = text.split(plugText);
   const pdfDoc = new PDFDocument();
-
+  const consideration = text[1].match("Thank you for your consideration").index;
   // pdfDoc.pipe(
   //   // browserFs.createWriteStream(`/Users/nahuelgorosito/Desktop/${title}.pdf`)
   //   browserFs.createWriteStream(`/${title}.pdf`)
@@ -69,8 +72,8 @@ function makePdf(title, text) {
   pdfDoc
     .font("Helvetica", 13)
     .fill("#000")
-    .moveDown(2)
-    .text(text[0], 56, 150, {
+    .moveDown(1)
+    .text(text[0], 56, 120, {
       paragraphGap: 6,
       indent: 10,
       width: 512,
@@ -88,18 +91,26 @@ function makePdf(title, text) {
     .text("Denizen Confidant", { continued: true })
     .font("Helvetica", 13)
     .fill("#000")
-    .text(text[1], {
+    .text(text[1].slice(0, consideration), {
       paragraphGap: 6,
       indent: 10,
       width: 512,
     });
 
   pdfDoc
+   .font("Helvetica", 14)
+   .text(text[1].slice(consideration), {
+     paragraphGap: 2,
+     indent: 0
+   });
+
+  pdfDoc
+    .moveDown(0.3)
     .font("Helvetica-Bold", 15)
     .fill("#666666")
     .fillOpacity(0.7)
     .text("Nahuel Gorosito", {
-      indent: 10,
+      indent: 0,
     });
 
   pdfDoc.end();

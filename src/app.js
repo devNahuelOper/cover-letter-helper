@@ -74,7 +74,7 @@ function makePdf(title, text) {
     .fill("#000")
     .moveDown(1)
     .text(text[0], 56, 120, {
-      paragraphGap: 6,
+      paragraphGap: 4,
       indent: 10,
       width: 512,
       continued: true,
@@ -92,7 +92,7 @@ function makePdf(title, text) {
     .font("Helvetica", 13)
     .fill("#000")
     .text(text[1].slice(0, consideration), {
-      paragraphGap: 6,
+      paragraphGap: 4,
       indent: 10,
       width: 512,
     });
@@ -105,7 +105,7 @@ function makePdf(title, text) {
    });
 
   pdfDoc
-    .moveDown(0.3)
+    // .moveDown(0.2)
     .font("Helvetica-Bold", 15)
     .fill("#666666")
     .fillOpacity(0.7)

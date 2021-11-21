@@ -35,7 +35,7 @@ export const activatePDF = () => {
   );
 }
 
-const plugText = "Denizen Confidant (https://denizen-confidant.herokuapp.com),";
+const plugText = "Denizen Confidant (https://denizen-confidant.herokuapp.com)";
 
 function makePdf(title, text) {
   text = text.split(plugText);
@@ -79,8 +79,8 @@ function makePdf(title, text) {
     .fillColor("#6b96c2")
     .font("Helvetica", 13)
     .link(
-      368,
-      pdfDoc.y,
+      pdfDoc.x,
+      pdfDoc.y + 14,
       pdfDoc.widthOfString("Denizen Confidant"),
       pdfDoc.currentLineHeight(),
       "https://denizen-confidant.herokuapp.com"
@@ -104,7 +104,7 @@ function makePdf(title, text) {
 
   pdfDoc.end();
   stream.on('finish', () => {
-    let link = document.links[1];
+    const link = document.links[1];
     link.href = stream.toBlobURL('application/pdf');
     link.download = `${title}.pdf`;
   });

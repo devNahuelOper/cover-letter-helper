@@ -31,7 +31,6 @@ export const activatePDF = () => {
   fs.writeFileSync("data/Helvetica-Bold.afm", HelveticaBold);
 
   $("#link").on("click", (e) => {
-    // e.preventDefault();
     makePdf(`${$("#Company").val().trim()}_CL`, content);
     // e.currentTarget.click();
   }

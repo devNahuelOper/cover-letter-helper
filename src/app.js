@@ -32,7 +32,6 @@ export const activatePDF = () => {
 
   $("#link").on("click", (e) => {
     makePdf(`${$("#Company").val().trim()}_CL`, content);
-    // e.currentTarget.click();
   }
   );
 }

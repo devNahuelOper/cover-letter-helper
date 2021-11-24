@@ -58,7 +58,6 @@ function makePdf(title, text) {
       characterSpacing: -1,
     })
     .fontSize(14)
-    // .fill("#848181")
     .fill("#aba9a9")
     .strokeColor("#848181")
     .text("Full Stack Software Engineer", 158, 77, {

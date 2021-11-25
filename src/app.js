@@ -102,7 +102,6 @@ function makePdf(title, text) {
    });
 
   pdfDoc
-    // .moveDown(0.2)
     .font("Helvetica-Bold", 15)
     .fill("#666666")
     .fillOpacity(0.7)

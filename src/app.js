@@ -42,6 +42,11 @@ function makePdf(title, text) {
   text = text.split(plugText);
   const pdfDoc = new PDFDocument();
   const consideration = text[1].match("Thank you for your consideration").index;
+
+  const position = document.getElementById("Position").value;
+  const positionRegex = new RegExp(/front[-\s]?end/i);
+  const isFrontend = positionRegex.test(position);
+  const myTitle = isFrontend ? "Front End Software Engineer" : "Full Stack Software Engineer";
   // pdfDoc.pipe(
   //   // browserFs.createWriteStream(`/Users/nahuelgorosito/Desktop/${title}.pdf`)
   //   browserFs.createWriteStream(`/${title}.pdf`)
@@ -60,7 +65,7 @@ function makePdf(title, text) {
     .fontSize(14)
     .fill("#aba9a9")
     .strokeColor("#848181")
-    .text("Full Stack Software Engineer", 158, 77, {
+    .text(myTitle, 158, 77, {
       characterSpacing: -1,
     });
 

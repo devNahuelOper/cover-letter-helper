@@ -47,6 +47,7 @@ function makePdf(title, text) {
   const positionRegex = new RegExp(/front[-\s]?end/i);
   const isFrontend = positionRegex.test(position);
   const myTitle = isFrontend ? "Front End Software Engineer" : "Full Stack Software Engineer";
+  
   // pdfDoc.pipe(
   //   // browserFs.createWriteStream(`/Users/nahuelgorosito/Desktop/${title}.pdf`)
   //   browserFs.createWriteStream(`/${title}.pdf`)

@@ -21,9 +21,6 @@ export const activateInputs = () => {
       content = document.getElementById("letter").innerText;
     });
   });
-  
-  console.log(fs);
-  console.log(browserFs);
 };
 
 export const activatePDF = () => {

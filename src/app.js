@@ -32,7 +32,6 @@ export const activatePDF = () => {
   }
   );
 }
-
 const plugText = "Denizen Confidant (https://denizen-confidant.herokuapp.com)";
 
 function makePdf(title, text) {
